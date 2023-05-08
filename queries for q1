@@ -1,0 +1,206 @@
+q1 Query to display Employee Name, Job, Hire Date, Employee Number; for each employee with the Employee Number appearing first. 
+
+SELECT Eno,Ename,Job_type,Hire_date FROM EMPLOYEE; 
+
+
+ Q2:-Query to display unique Jobs from the Employee Table. 
+
+SELECT DISTINCT Job_type FROM EMPLOYEE; 
+
+
+ 
+ Q3:- Query to display the Employee Name concatenated by a Job separated by a comma. 
+
+SELECT CONCAT(Ename, ',',Job_type ) AS Employee_Job FROM EMPLOYEE; 
+
+
+ Q4:-Query to display all the data from the Employee Table. Separate each Column by a commaand name the said column as THE_OUTPUT. 
+
+SELECT CONCAT(Eno, ',',Ename, ',',Job_type, ',',IFNULL(SupervisorENo, ''), ',',Hire_date, ',',IFNULL(Dno, ''), ',',IFNULL(Commission, ''), ',', Salary)
+AS THE_OUTPUT  
+
+FROM EMPLOYEE; 
+
+
+ Q5:-. Query to display the Employee Name and Salary of all the employees earning more than$2850. 
+
+SELECT Ename,Salary FROM EMPLOYEE WHERE Salary > 2850; 
+
+Q6:- Query to display Employee Name and Department Number for the Employee No= 79. 
+
+SELECT Ename,Dno FROM EMPLOYEE WHERE Eno = '79'; 
+
+
+ Q7:-Query to display Employee Name and Salary for all employees whose salary is not in therange of $1500 and $2850. 
+
+SELECT Ename,Salary FROM EMPLOYEE WHERE Salary NOT BETWEEN 1500 AND 2850; 
+
+
+ Q8Query to display Employee Name and Department No. of all the employees in Dept 10 andDept 30 in the alphabetical order by name. 
+
+SELECT Ename,Dname FROM (EMPLOYEE NATURAL JOIN DEPARTMENT) WHERE Dno IN (10, 30) ORDER BY Ename; 
+
+ Q9Query to display Name and Hire Date of every Employee who was hired in 1981. 
+
+SELECT Ename, Hire_date FROM EMPLOYEE WHERE Hire_date LIKE '1981____'; 
+
+ Q10Query to display Name and Job of all employees who have not assigned a supervisor. 
+
+SELECT Ename, Job_type FROM EMPLOYEE WHERE SupervisorENo IS NULL; 
+
+ Q11Query to display the Name, Salary and Commission for all the employees who earncommission 
+
+SELECT Ename,Salary,Commission FROM EMPLOYEE WHERE Commission IS NOT NULL; 
+
+  Q12Sort the data in descending order of Salary and Commission. 
+
+SELECT * FROM EMPLOYEE ORDER BY Salary DESC, Commission DESC; 
+
+  Q13Query to display Name of all the employees where the third letter of their name is ‘A’ 
+
+SELECT Ename FROM EMPLOYEE WHERE Ename LIKE '__A%'; 
+
+Q14Query to display Name of all employees either have two ‘R’s or have two ‘A’s in their name and are either in Dept No = 30 or their Manger’s Employee No
+= 7788. 
+
+SELECT Ename FROM EMPLOYEE  WHERE Ename LIKE '%R%R%' OR Ename LIKE '%A%A%' OR Dno = 30 OR SupervisorENo = '778'; 
+
+ Q15. Query to display Name, Salary and Commission for all employees whose Commissionamount is greater than their Salary increased by 5% 
+
+SELECT Ename,Salary,Commission FROM EMPLOYEE WHERE Commission > 1.05 * Salary; 
+
+Q16. Query to display the Current Date along with the dayname. 
+
+SELECT DATE(NOW()),DAYNAME(NOW()); 
+
+  Q17. Query to display Name, Hire Date and Salary Review Date which is the 1st Monday after six months of employment 
+
+SELECT Ename,Hire_date,date_add(date_add(Hire_date,INTERVAL 6 MONTH),INTERVAL (7-WEEKDAY(date_add(Hire_date,INTERVAL 6 MONTH))) DAY) AS
+REVIEW_DATE FROM employee; 
+
+ Q18Query to display Name and calculate the number of months between today and the date on which employee was hired of department ‘Purchase’. 
+
+SELECT Ename, TIMESTAMPDIFF(MONTH, Hire_date, NOW())FROM (EMPLOYEE NATURAL JOIN DEPARTMENT) WHERE Dname = 'Purchase'; 
+
+-Q19Query to display the following for each employee <E-Name> earns < Salary> monthly but wants < 3 * Current Salary >. Label the Column as Dream Salary. 
+
+SELECT CONCAT(Ename, ' earns $',Salary, ' monthly ','but wants $', 3 * Salary )AS  "Dream Salary" FROM EMPLOYEE; 
+
+-Q20. Query to display Name with the 1st letter capitalized and all other letter lower case andlength of their name of all the employees whose name 
+starts with ‘J’, ’A’ and ‘M’ 
+
+SELECT CONCAT( UPPER(SUBSTR(Ename, 1, 1)),LOWER(SUBSTR(Ename, 2)))AS "Name",LENGTH(Ename) FROM EMPLOYEE WHERE Ename LIKE 'J%' OR Ename LIKE 'A%'
+OR Ename LIKE 'M%'; 
+
+Q21Query to display Name, Hire Date and Day of the week on which the employee started 
+
+SELECT Ename,Hire_date,DAYNAME(Hire_date) FROM EMPLOYEE; 
+
+ Q22Query to display Name, Department Name and Department No for all the employees. 
+
+SELECT Ename,Dno,Dname FROM (EMPLOYEE NATURAL JOIN DEPARTMENT); 
+
+ Q23. Query to display Unique Listing of all Jobs that are in Department number 30 
+
+SELECT DISTINCT Job_type FROM EMPLOYEE WHERE Dno = 30; 
+
+Q24. Query to display Name, Dept Name of all employees who have an ‘A’ in their name 
+
+SELECT Ename,Dname FROM (EMPLOYEE NATURAL JOIN DEPARTMENT) WHERE Ename LIKE '%A%'; 
+
+Q25Query to display Name, Job, Department No. And Department Name for all the employees working at the Dallas location. 
+
+SELECT Ename,Job_type,Dno,Dname FROM (EMPLOYEE NATURAL JOIN DEPARTMENT) WHERE Location = 'Dallas'; 
+
+Q26Query to display Name and Employee no. Along with their supervisor’s Name and the supervisor’s employee no; along with the Employees’
+Name who do not have a supervisor 
+
+SELECT E.Ename,E.Eno,S.Ename AS SupervisorName, S.Eno   AS SupervisorEno FROM EMPLOYEE AS E LEFT OUTER JOIN EMPLOYEE AS S oN E.SupervisorENo = S.Eno; 
+
+Q27. Query to display Name, Dept No. And Salary of any employee whose department No. and salary matches both the department no. And the salary 
+of any employee who earns a commission 
+
+SELECT L.Ename,L.Dno,L.Salary FROM EMPLOYEE AS L, EMPLOYEE AS R WHERE L.Dno = R.Dno AND L.Salary = R.Salary AND L.Eno <> R.Eno AND R.Commission IS NOT NULL;  
+
+ Q28Query to display Name and Salaries represented by asterisks, where each asterisk (*)signifies $100. 
+
+SELECT Ename, RPAD('', Salary / 100, '') AS Salary_Star FROM EMPLOYEE;  
+
+ Q29Query to display the Highest, Lowest, Sum and Average Salaries of all the employees 
+
+SELECT MAX(Salary),MIN(Salary),SUM(Salary),AVG(Salary) FROM EMPLOYEE; 
+
+  Q30. Query to display the number of employees performing the same Job type functions 
+
+SELECT Job_type,COUNT(DISTINCT Eno)FROM EMPLOYEE GROUP BY Job_type; 
+
+ Q31. Query to display the total number of supervisors without listing their names. 
+
+SELECT COUNT(DISTINCT SupervisorENo)FROM EMPLOYEE; 
+
+ Q32Query to display the Department Name, Location Name, No. of Employees and the average salary for all employees in that department. 
+
+SELECT Dname,Location,COUNT(*)AS NumberOfEmployees,ROUND(AVG(Salary), 2) AS AvgSalary FROM EMPLOYEE NATURAL JOIN DEPARTMENT GROUP BY EMPLOYEE.Dno; 
+
+  Q33. Query to display Name and Hire Date for all employees in the same dept. as Blake 
+
+SELECT Ename,Hire_date FROM EMPLOYEE WHERE Dno IN (  SELECT Dno FROM EMPLOYEE WHERE Ename LIKE 'Blake%'); 
+
+Q34Query to display the Employee No. And Name for all employees who earn more than theaverage salary. 
+
+SELECT Eno,Ename FROM EMPLOYEE WHERE Salary > ( SELECT AVG(Salary) fROM EMPLOYEE ); 
+
+ Q35:-Query to display Employee Number and Name for all employees who work in a department with any employee whose name contains a ‘T’. 
+
+SELECT Eno, Ename FROM EMPLOYEE WHERE Dno IN(SELECT Dno FROM EMPLOYEE  WHERE Ename LIKE '%T%');  
+
+Q36:- Query to display the names and salaries of all employees who report to supervisor named ‘King’ 
+
+SELECT Ename,Salary FROM EMPLOYEE  WHERE SupervisorENo IN (SELECT Eno FROM EMPLOYEE WHERE Ename LIKE 'King%'); 
+
+Q37:-Query to display the department no, name and job for all employees in the Sales department 
+
+SELECT Dno,Ename,Job_type FROM (EMPLOYEE NATURAL JOIN DEPARTMENT) WHERE Dname = 'Sales';  
+
+Q38:-Display names of employees alongwith their department name who have more than 20 yearsexperience 
+
+SELECT Ename,Dname FROM (EMPLOYEE NATURAL JOIN DEPARTMENT) WHERE TIMESTAMPDIFF (YEAR,Hire_date,NOW()) > 20; 
+
+Q39:-Display total number of departments at each location 
+
+SELECT Location,COUNT(*) FROM DEPARTMENT GROUP BY Location; 
+
+ Q40:-Find the department name in which atleast 20 employees work in. 
+
+SELECT Dname FROM (EMPLOYEE NATURAL JOIN DEPARTMENT) GROUP BY Dno HAVING COUNT(*) > 20; 
+
+ Q41:-Query to find the employee’name who is not supervisor and name of supervisor supervising more than 5 employees. 
+
+(SELECT Ename FROM EMPLOYEE WHERE Eno NOT IN ( SELECT DISTINCT SupervisorENo FROM EMPLOYEE WHERE SupervisorENo IS NOT NULL))
+UNION(SELECT Ename FROM EMPLOYEE WHERE Eno  IN ( SELECT SupervisorENo FROM EMPLOYEE WHERE SupervisorENo IS NOT NULL GROUP BY 
+SupervisorENo HAVING COUNT(*) > 5 ) );  
+
+Q42:- Query to display the jobtype with maximum and minimum employees. 
+
+WITH JOBCOUNT AS ( SELECT COUNT(*) AS ECount FROM EMPLOYEE GROUP BY Job_type)SELECT Job_type, COUNT(*) 
+FROM EMPLOYEE GROUP BY Job_type HAVING COUNT(*) IN ((SELECT MAX(ECount) FROM JOBCOUNT)UNION(SELECT MIN(ECount)FROM JOBCOUNT)); 
+
+         
+
+  
+
+  
+
+  
+
+  
+
+ 
+
+                                          
+
+ 
+
+ 
+
+ 
