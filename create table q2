@@ -1,0 +1,188 @@
+
+Create table employee 
+
+( 
+
+Fname varchar(30) not null, 
+
+Minit varchar(30) not null, 
+
+Lname varchar(30) not null, 
+
+Ssn char(10) not null, 
+
+Bdate date not null, 
+
+Address varchar(100) not null, 
+
+Sex char(1) not null, 
+
+Salary decimal(10,2), 
+
+Superssn char(10) , 
+
+Dno int , 
+
+Primary key(ssn) 
+
+) 
+
+; 
+
+ 
+
+Create table department  
+
+( 
+
+Dname varchar(30) not null, 
+
+Dnumber int not null, 
+
+Mgrssn char(10), 
+
+Mgrstartdate date, 
+
+Primary key(dnumber) 
+
+) 
+
+; 
+
+Create table dept_locations 
+
+( 
+
+Dnumber int not null, 
+
+Dlocation varchar(100) not null, 
+
+Primary key(dnumber ,dlocation) 
+
+) 
+
+; 
+
+ 
+
+Create table project  
+
+( 
+
+Pname varchar(30) not null, 
+
+Pnumber int not null , 
+
+Plocation varchar(100), 
+
+Dnum int , 
+
+Primary key(pnumber) 
+
+) 
+
+; 
+
+ 
+
+Create table works_on 
+
+( 
+
+Essn char(10) not null, 
+
+Pno int  not null, 
+
+Hours int , 
+
+Primary key(essn,pno) 
+
+) 
+
+; 
+
+ 
+
+Create table dependent  
+
+( 
+
+Essn char(10) not null , 
+
+Dependent_name varchar(30), 
+
+Sex char(1) not null, 
+
+Bdate date not null , 
+
+Relationship varchar(10), 
+
+Primary key(essn,dependent_name) 
+
+) 
+
+; 
+
+ 
+
+Alter table employee  
+
+Add foreign key(superssn) 
+
+References employee(ssn); 
+
+ 
+
+Alter table employee  
+
+Add foreign key(dno) 
+
+References department(dnumber); 
+
+ 
+
+Alter table department  
+
+Add foreign key(mgrssn) 
+
+References employee(ssn); 
+
+ 
+
+Alter table dept_locations 
+
+Add foreign key(dnumber) 
+
+References department(dnumber); 
+
+ 
+
+Alter table project 
+
+Add foreign key(dnum) 
+
+References department(dnumber); 
+
+ 
+
+Alter table works_on 
+
+Add foreign key(essn) 
+
+References employee(ssn); 
+
+ 
+
+Alter table works_on 
+
+Add foreign key(pno) 
+
+References project(pnumber); 
+
+ 
+
+Alter table dependent  
+
+Add foreign key(essn) 
+
+References employee(ssn);
