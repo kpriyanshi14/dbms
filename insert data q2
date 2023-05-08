@@ -1,0 +1,160 @@
+
+INSERT INTO department (Dname, Dnumber, Mgrssn, Mgrstartdate) 
+
+VALUES  
+
+    ('Sales', 1, null , '2000-01-01'), 
+
+    ('Marketing', 2, null , '2005-02-02'), 
+
+    ('Engineering', 3, null , '2010-03-03'); 
+
+ 
+
+INSERT INTO dept_locations (Dnumber, Dlocation) 
+
+VALUES  
+
+    (1, 'New York'), 
+
+    (2, 'Chicago'), 
+
+    (3, 'San Francisco'); 
+
+ 
+
+INSERT INTO project (Pname, Pnumber, Plocation, Dnum) 
+
+VALUES  
+
+    ('Project A', 1, 'New York', 1), 
+
+    ('Project B', 2, 'Chicago', 2), 
+
+    ('Project C', 3, 'San Francisco', 3), 
+
+    ('Project D', 4, 'New York', 1), 
+
+    ('Project E', 5, 'Chicago', 2); 
+
+ 
+
+INSERT INTO employee (Fname, Minit, Lname, Ssn, Bdate, Address, Sex, Salary, Superssn, Dno) 
+
+VALUES  
+
+    ('John', 'D', 'Doe', '123456789', '1990-01-01', '123 Main St', 'M', 50000.00, NULL, 1), 
+
+    ('Jane', 'L', 'Smith', '234567890', '1995-02-02', '456 Elm St', 'F', 60000.00, '123456789', 2), 
+
+    ('Bob', 'A', 'Johnson', '345678901', '2000-03-03', '789 Oak St', 'M', 70000.00, '123456789', 2), 
+
+    ('Mary', 'K', 'Jones', '456789012', '2005-04-04', '1010 Pine St', 'F', 80000.00, '234567890', 3), 
+
+    ('Tom', 'B', 'Brown', '567890123', '2010-05-05', '1212 Cedar St', 'M', 90000.00, '234567890', 3), 
+
+    ('Samantha', 'E', 'Lee', '678901234', '2015-06-06', '1414 Maple St', 'F', 100000.00, '345678901', 3), 
+
+    ('David', 'F', 'Wilson', '789012345', '1985-07-07', '1616 Birch St', 'M', 110000.00, NULL, 1), 
+
+    ('Jennifer', 'G', 'Davis', '890123456', '1980-08-08', '1818 Walnut St', 'F', 120000.00, '789012345', 1), 
+
+    ('Michael', 'H', 'Taylor', '901234567', '1975-09-09', '2020 Spruce St', 'M', 130000.00, '789012345', 1), 
+
+    ('Laura', 'I', 'Clark', '012345678', '1970-10-10', '2222 Chestnut St', 'F', 140000.00, '789012345', 1); 
+
+ 
+
+update department  
+
+set mgrssn='789012345' 
+
+where dnumber=1; 
+
+  
+
+update department  
+
+set mgrssn='123456789' 
+
+where dnumber=2; 
+
+  
+
+update department  
+
+set mgrssn='234567890' 
+
+where dnumber=3; 
+
+ 
+
+INSERT INTO works_on (Essn, Pno, Hours) 
+
+VALUES  
+
+('123456789', 1, 10), 
+
+('234567890', 1, 16), 
+
+('123456789', 2, 12), 
+
+('345678901', 3, 22), 
+
+('345678901', 4, 23), 
+
+('456789012', 5, 10), 
+
+('123456789', 3, 11), 
+
+('567890123', 4, 12), 
+
+('678901234', 1, 19), 
+
+('567890123', 1, 23), 
+
+('678901234', 5, 24), 
+
+('678901234', 3, 9), 
+
+('890123456', 2, 8), 
+
+('890123456', 3, 7), 
+
+('789012345', 4, 12), 
+
+('901234567', 1, 22), 
+
+('901234567', 5, 17), 
+
+('012345678', 1, 19), 
+
+('012345678', 3, 18), 
+
+('012345678', 5, 22); 
+
+ 
+
+INSERT INTO dependent (Essn, Dependent_name, Sex, Bdate, Relationship) 
+
+VALUES 
+
+('123456789', 'Emily', 'f', '2010-05-15', 'daughter'), 
+
+('234567890', 'Jacob', 'M', '2009-04-15', 'Son'), 
+
+('345678901', 'Isabella', 'f', '2011-06-15', 'daughter'), 
+
+('456789012', 'Ethan', 'M', '2008-06-15', 'Son'), 
+
+('567890123', 'Mia', 'f', '2012-01-15', 'daughter'), 
+
+('678901234', 'William', 'M', '2006-07-15', 'Son'), 
+
+('789012345', 'Sophia', 'f', '2013-09-15', 'daughter'), 
+
+('890123456', 'Michael', 'M', '2004-012-15', 'Son'), 
+
+('901234567', 'Harper', 'f', '2015-11-15', 'daughter'), 
+
+('012345678', 'Alexander', 'M', '2009-06-15', 'Son');
